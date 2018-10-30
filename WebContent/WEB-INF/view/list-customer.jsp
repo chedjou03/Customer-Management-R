@@ -34,14 +34,13 @@
 						
 						<c:forEach var = "tempCustomer" items = "${customers}">
 							<tr>
-								<th>${tempCustomer.firstName}</th>
-								<th>${tempCustomer.lastName}</th>
-								<th>${tempCustomer.email}</th>
+								<td>${tempCustomer.firstName}</td>
+								<td>${tempCustomer.lastName}</td>
+								<td>${tempCustomer.email}</td>
 							</tr>
 						</c:forEach>
 					
 					</table>
-				
 				
 				</div>
 			
