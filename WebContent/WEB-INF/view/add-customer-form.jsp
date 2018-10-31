@@ -40,15 +40,19 @@
 					<tbody>
 					
 						<tr>
-							<td> <label> First Name</label> </td>
-							<td> <form:input path = "firstName"/> </td>	
+							<td> <label> First Name * </label> </td>
+							<td> <form:input path = "firstName"/> <form:errors path = "firstName"/> </td>	
 						<tr>
-							<td> <label> Last Name</label> </td>
-							<td> <form:input path = "lastName"/> </td>
+							<td> <label> Last Name * </label> </td>
+							<td> <form:input path = "lastName"/> <form:errors path = "lastName"/> </td>
 						</tr>
 						<tr>	
-							<td> <label> Email</label> </td>
-							<td> <form:input path = "email"/> </td>
+							<td> <label> Email * </label> </td>
+							<td> <form:input path = "email"/> <form:errors path = "email"/></td>
+						</tr>
+						<tr> 
+							<td> * Required field </td> 
+						</tr>	
 						<tr>		
 							<td> <input type = "submit" value = "save" class = "save"/> </td>	
 							<td> <input type = "button" value = "List customer" onclick = "window.location.href='list';return false"  class = "save"/> </td>		
@@ -58,7 +62,8 @@
 				
 				</table>
 			
-			</form:form>	
+			</form:form>
+			
 			
 		</div>
 		

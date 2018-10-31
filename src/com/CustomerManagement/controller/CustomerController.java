@@ -5,9 +5,13 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +28,14 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	
+	// add an inibinder ... to convert trimp inputs strings
+	// remove leading and trailing whitespace from any string input
+	@InitBinder
+	public void initBinder ( WebDataBinder binder )
+	{
+		StringTrimmerEditor stringtrimmer = new StringTrimmerEditor(true);
+		binder.registerCustomEditor(String.class, stringtrimmer);
+	 }
 	
 	@GetMapping("/list")
 	public String getCustomers(Model theModel)
@@ -47,12 +59,24 @@ public class CustomerController {
 	}
 	
 	@PostMapping("/saveCustomer")
-	public String saveCustomer(@Valid @ModelAttribute("customer") Customer theCustomer)
+	public String saveCustomer(@Valid @ModelAttribute("customer") Customer theCustomer,BindingResult theBindingResult)
 	{
-		//save the customer
-		customerService.saveCustomer(theCustomer);
+		//there was validation error on the form, all fields were not filled
+		System.out.println("theBindingResult.hasErrors() "+theBindingResult.hasErrors());
+		if(theBindingResult.hasErrors())
+		{
+			//return to customer add form page
+			return "add-customer-form";
+		}
+		//all fields were filled
+		else
+		{
+			//save the customer
+			customerService.saveCustomer(theCustomer);
+			
+			return "redirect:/customer/list";
+		}
 		
-		return "redirect:/customer/list";
 	}
 	
 	@GetMapping("/updateCustomer")
