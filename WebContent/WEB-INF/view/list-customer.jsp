@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<title>List Customer</title>
@@ -10,6 +11,7 @@
 		  rel="stylesheet"
 		  href="${pageContext.request.contextPath}/resources/css/style.css" />
 	</head>
+	
 	<body>
 		
 		<div id = "wrapper">
@@ -19,8 +21,11 @@
 				<h2>CM - Customer Management</h2>
 				
 			</div>
-			
-			<div id = "container">
+		</div>
+		
+		<input type = "button" value = "Add Customer" onclick = "window.location.href='showCustomerAddForm';return false"  class = "add-button"/>
+		
+		<div id = "container">
 			
 				<div id = "content">
 				
@@ -30,23 +35,32 @@
 							<th>First Name</th>
 							<th>Last  Name</th>
 							<th>Email</th>
+							<th>Action</th>
 						</tr>
 						
 						<c:forEach var = "tempCustomer" items = "${customers}">
+						
+							<c:url var = "updateLink" value = "/customer/updateCustomer">
+								<c:param name="customerId" value = "${tempCustomer.id}"/>
+							</c:url>
+							
+							<c:url var = "deleteLink" value = "/customer/deleteCustomer">
+								<c:param name="customerId" value = "${tempCustomer.id}"/>
+							</c:url>
+							
 							<tr>
 								<td>${tempCustomer.firstName}</td>
 								<td>${tempCustomer.lastName}</td>
 								<td>${tempCustomer.email}</td>
+								<td><a href = "${updateLink}">Update</a> | <a href = "${deleteLink}">Delete</a></td>
 							</tr>
 						</c:forEach>
 					
 					</table>
 				
 				</div>
-			
-			</div>
 		
 		</div>
-		
+			
 	</body>
 </html>
