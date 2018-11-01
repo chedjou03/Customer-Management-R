@@ -62,7 +62,6 @@ public class CustomerController {
 	public String saveCustomer(@Valid @ModelAttribute("customer") Customer theCustomer,BindingResult theBindingResult)
 	{
 		//there was validation error on the form, all fields were not filled
-		System.out.println("theBindingResult.hasErrors() "+theBindingResult.hasErrors());
 		if(theBindingResult.hasErrors())
 		{
 			//return to customer add form page
